@@ -1,0 +1,11 @@
+# Syslog Viewer Version 1.0
+# by Trevor Manternach (trevormanternach.com)
+#
+# Features of this version include:
+#  - Live updating
+#  - Search: The search is limited to 300 items by default. It will return the 300 newest matches.
+#  - Highlight to search: Highlighting (almost) any text on the page will automatically paste the text into the search box. Pressing Enter will show the search results.
+#
+# TODO
+#  - Animate "Loading..." when fetching search results
+#  - Live update the search results if item matches search criteria

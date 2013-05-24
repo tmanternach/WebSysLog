@@ -1,12 +1,12 @@
 <?php require_once("config.php"); ?>
 <html>
 <head>
-<title><?=$title;?></title>
+<title><?=$title; ?></title>
 <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
 <link href='http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css' rel='stylesheet' type='text/css'>
 <style>
 body {
-	background-color: rgb(17,17,17);
+	background-color: <?=$background_color;?>;
 	font-family: 'Inconsolata', sans-serif;
 	font-weight: 400;
 	font-size: 15px;
@@ -16,15 +16,15 @@ body {
 	min-width: 600px;
 }
 .receivedAt {
-	color: #009E52;
+	color: <?=$date_color;?>;
 }
 .fromHost {
-	color: #FFFA9E;
+	color: <?=$host_color;?>;
 	margin-left: 5px;
 	cursor: pointer;
 }
 .Tag {
-	color: #0081C2;
+	color: <?=$tag_color;?>;
 	margin-left: 5px;
 	cursor: pointer;
 }
@@ -54,10 +54,19 @@ li {
 	position: fixed;
 	top: 0;
 	height: 50px;
-	background-color: rgba(38,38,38,0);
+	background-color: <?=$header_color;?>;
 	border-bottom: 2px solid rgb(38,38,38);
 	line-height: 50px;
 	padding-left: 15px;
+}
+#footer {
+  width: calc(100% - 13px);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(transparent  10%, <?=$background_color;?> 90%);
+  pointer-events:none;
+  height: 100px;
 }
 #search {
 	width: -webkit-calc(100% - 13px);
@@ -111,7 +120,7 @@ input {
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
 </head>
 <body>
-<div id="header"><h1><?=$title;?></h1>
+<div id="header"><h1><?=$title; ?></h1>
 	<div id="searchheader">
 		<input type="text" id="searchbox" name="searchbox"></input>
 		<input type="button" id="submit" name="submit" value="Search"</input>
@@ -154,6 +163,7 @@ while($row = mysql_fetch_array($result))
 mysql_close($con);
 ?>
 </ul>
+<div id="footer"></div>
 </div>
 <script type="text/javascript">
 var items = [];
