@@ -22,7 +22,7 @@ while($row = mysql_fetch_array($result))
   		$receivedAt = substr($row['ReceivedAt'],5);
   		$fromtHost = $row['FromHost'];
   		$syslogTag = $row['SysLogTag'];
-  		$message = $row['Message'];
+		$message = htmlentities( $row['Message']);
   		$syslogTagPos = strpos($syslogTag, "[");
   		echo "<li class=\"search\" id=\"$ID\">";
   		echo "<span class=\"receivedAt\">$receivedAt</span>";

@@ -15,7 +15,7 @@ while($row = mysql_fetch_array($result))
   if($today == $receivedDay) { $receivedDay = "Today"; }
   $fromtHost = $row['FromHost'];
   $syslogTag = $row['SysLogTag'];
-  $message = $row['Message'];
+  $message = htmlentities( $row['Message']);
   $syslogTagPos = strpos($syslogTag, "[");
   if($syslogTagPos == "0") {
     $syslogTagPos = strpos($syslogTag, ":");
