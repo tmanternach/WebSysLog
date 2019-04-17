@@ -16,36 +16,34 @@
 	$warning_color = "#AA0000";
 
 
-       // DB-Table
-       $tbl_name = "syslog"; //The Table where Syslog events are stored.
-       //$tbl_name = "SystemEvents";
+	// DB-Table
+	$tbl_name = "syslog"; //The Table where Syslog events are stored.
+	//$tbl_name = "SystemEvents";
 
-       //Translation-Table for the various columnNames
-       // Hint: Change only the right values! Left-Values are the indexes!
-       $columnNames = array(
-               "id" => "id",
-               "ReceivedAt"  => "timestamp",
-               "FromHost" => "host",
-               "SysLogTag" => "tag",
-               "Priority" => "level",
-               "Message"  => "msg",
-       );
-       /*
-       $columnNames = array(
-               "id" => "ID",
-               "ReceivedAt"  => "ReceivedAt",
-               "FromHost" => "FromHost",
-               "SysLogTag" => "SysLogTag",
-               "Priority" => "Priority",
-               "Message"  => "Message",
-       );
-       */
+	//Translation-Table for the various columnNames
+	// Hint: Change only the right values! Left-Values are the indexes!
+	$columnNames = array(
+		 "id" => "id",
+		 "ReceivedAt"  => "timestamp",
+		 "FromHost" => "host",
+		 "SysLogTag" => "tag",
+		 "Priority" => "level",
+		 "Message"  => "msg",
+	);
+	/*
+	$columnNames = array(
+		 "id" => "ID",
+		 "ReceivedAt"  => "ReceivedAt",
+		 "FromHost" => "FromHost",
+		 "SysLogTag" => "SysLogTag",
+		 "Priority" => "Priority",
+		 "Message"  => "Message",
+	);
+	*/
 
-	
-	
-       # ---DO NOT EDIT BELOW THIS LINE---
-       require_once('dbhelper.php');
+	# ---DO NOT EDIT BELOW THIS LINE---
+	require_once('dbhelper.php');
 
-       $database = new DBObject($hostname, $username, $password, $database_name);
-       $tbl = new TableObject($database, $tbl_name, $columnNames);
+	$database = new DBObject($hostname, $username, $password, $database_name);
+	$tbl = new TableObject($database, $tbl_name, $columnNames);
 ?>

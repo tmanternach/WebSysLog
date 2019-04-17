@@ -199,37 +199,37 @@
 	<div id="main">
 		<ul id="messages">
 			<?php
-                               $sql="SELECT * FROM " . $tbl->tableName() ." ORDER BY ID DESC LIMIT $search_limit";
-                               $result = mysql_query($sql, $database->getDBcon());
+				$sql="SELECT * FROM " . $tbl->tableName() ." ORDER BY ID DESC LIMIT $search_limit";
+				$result = mysql_query($sql, $database->getDBcon());
 				$i = 0;
 				while($row = mysql_fetch_array($result)) {
-                                       $receivedAt = substr($row[$tbl->columnName('ReceivedAt')], 0);
-                                       $fromHost = $row[$tbl->columnName('FromHost')];
-                                       $DisplaySyslogTag = $row[$tbl->columnName('SyslogTag')];
-                                       $DisplaySyslogLevel = $row[$tbl->columnName('Priority')];
-                                       $message = $row[$tbl->columnName('Message')];
-                                       $id = $row[$tbl->columnName('id')];
+					$receivedAt = substr($row[$tbl->columnName('ReceivedAt')], 0);
+					$fromHost = $row[$tbl->columnName('FromHost')];
+					$DisplaySyslogTag = $row[$tbl->columnName('SyslogTag')];
+					$DisplaySyslogLevel = $row[$tbl->columnName('Priority')];
+					$message = $row[$tbl->columnName('Message')];
+					$id = $row[$tbl->columnName('id')];
 
-                                       $syslogTagPos = strpos($DisplaySyslogTag, "[");
+					$syslogTagPos = strpos($DisplaySyslogTag, "[");
 					if($syslogTagPos == "0") {
-                                               $syslogTagPos = strpos($DisplaySyslogTag, ":");
+						$syslogTagPos = strpos($DisplaySyslogTag, ":");
 					}
-				  
+
 					//Log Output
 					echo "<li class=\"live\" id=\"$id\">";
 						echo "<span id=\"$id\" class=\"receivedAt\">$receivedAt</span>";
-                                               echo "<span id=\"$id\" class=\"fromHost\">$fromHost</span>";
-                                               echo "<span id=\"$id\" class=\"Tag\">".$DisplaySyslogLevel.": </span>";
+						echo "<span id=\"$id\" class=\"fromHost\">$fromHost</span>";
+						echo "<span id=\"$id\" class=\"Tag\">".$DisplaySyslogLevel.": </span>";
 						echo "<span id=\"$id\" class=\"Message\">$message</span>";
 					echo "</li>";
 				
 					if( $i == 0 ){
-                                               $lastId = $id;
+						$lastId = $id;
 					}
 					$i++;
 					
 					if ($t == 0) {
-                                               $lastTime = $receivedAt;
+						$lastTime = $receivedAt;
 					}
 					$t++;
 				}
