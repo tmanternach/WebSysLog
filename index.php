@@ -1,5 +1,6 @@
 <?php 
 	require_once("config.php");
+
 	
 	//Get Var
 	$searchtext = $_GET['search'];
@@ -8,7 +9,7 @@
 
 <html>
 <head>
-	<title><?=$title; ?></title>
+       <title><?=$title;?></title>
 	<link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
 	<link href='http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css' rel='stylesheet' type='text/css'>
 	
@@ -66,6 +67,7 @@
 		#main {
 			height: -webkit-calc(100% - 55px);
 			height: -moz-calc(100% - 55px);
+                       height: calc(100% - 55px);
 			position: fixed;
 			bottom: 0;
 			width: 100%;
@@ -121,6 +123,7 @@
 		#search {
 			width: -webkit-calc(100% - 13px);
 			width: -moz-calc(100% - 13px);
+                       width: calc(100% - 13px);
 			position: fixed;
 			bottom:0;
 			height: 55px;
@@ -196,40 +199,40 @@
 	<div id="main">
 		<ul id="messages">
 			<?php
-				$sql="SELECT * FROM syslog.syslog ORDER BY timestamp DESC LIMIT $search_limit";
-				$result = mysql_query($sql);
+                               $sql="SELECT * FROM " . $tbl->tableName() ." ORDER BY ID DESC LIMIT $search_limit";
+                               $result = mysql_query($sql, $database->getDBcon());
 				$i = 0;
 				while($row = mysql_fetch_array($result)) {
-					$id = $row['id'];
-					$receivedAt = substr($row['timestamp'], 0);
-					$fromtHost = $row['host'];
-					$syslogTag = $row['tag'];
-					$syslogLevel = $row['level'];
-					$message = $row['msg'];
-					$syslogTagPos = strpos($syslogTag, "[");
+                                       $receivedAt = substr($row[$tbl->columnName('ReceivedAt')], 0);
+                                       $fromHost = $row[$tbl->columnName('FromHost')];
+                                       $DisplaySyslogTag = $row[$tbl->columnName('SyslogTag')];
+                                       $DisplaySyslogLevel = $row[$tbl->columnName('Priority')];
+                                       $message = $row[$tbl->columnName('Message')];
+                                       $id = $row[$tbl->columnName('id')];
+
+                                       $syslogTagPos = strpos($DisplaySyslogTag, "[");
 					if($syslogTagPos == "0") {
-						$syslogTagPos = strpos($syslogTag, ":");
+                                               $syslogTagPos = strpos($DisplaySyslogTag, ":");
 					}
 				  
 					//Log Output
 					echo "<li class=\"live\" id=\"$id\">";
 						echo "<span id=\"$id\" class=\"receivedAt\">$receivedAt</span>";
-						echo "<span id=\"$id\" class=\"fromHost\">$fromtHost</span>";
-						echo "<span id=\"$id\" class=\"Tag\">".$syslogLevel.": </span>";
+                                               echo "<span id=\"$id\" class=\"fromHost\">$fromHost</span>";
+                                               echo "<span id=\"$id\" class=\"Tag\">".$DisplaySyslogLevel.": </span>";
 						echo "<span id=\"$id\" class=\"Message\">$message</span>";
 					echo "</li>";
 				
 					if( $i == 0 ){
-						$lastId = $row['id'];
+                                               $lastId = $id;
 					}
 					$i++;
 					
 					if ($t == 0) {
-						$lastTime = $row['timestamp'];
+                                               $lastTime = $receivedAt;
 					}
 					$t++;
 				}
-				mysql_close($con);
 			?>
 		</ul>
 	</div>
